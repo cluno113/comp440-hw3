@@ -1,9 +1,9 @@
 # COMP 440 HW3 write-up
 
-Name:
+Name: Claire Kuno
 
 Type each answer after the `>` under its question. An answer can run over several lines, but a blank line
-ends it: to start a new paragraph, put a line with just `>` between the two. In a table, fill every cell
+ends it: to start a new paragraph, put a line with just `>` between the two. In a table, fill every cell   
 of every numbered row. Claude may paste a program's output where a question asks for it, but never an
 answer. The homework page ticks a step when every answer in its section is filled in.
 
@@ -28,31 +28,31 @@ There is nothing to write for this step except your name, after `Name:` at the t
 
 What verdict did the model give (*supported*, *refuted* or *doesn't say*), and what reason did it give? Quote the lines of the output that show them.
 
->
+> *doesn't say*  I can't confirm from memory that English Wikipedia has an article identifying the composer of "Persian Surgery Dervishes" or giving that person's birth date, so I can't verify the claim.
 
 ## 0c. Give it one search
 
 Which Wikipedia page did it read? Quote the line of the output that shows it.
 
->
+>  Page: Persian Surgery Dervishes
 
 Did that page settle the claim correctly? If not, why do you think the search led there?
 
->
+> No, it was not to identify the composer of the song from this page. It correctly recognized that the page did not mention Terry Riley's birthday. So, the verdict is 'doesn't say'. It could have checked Terry Riley's Wikipedia page. 
 
 ## 0d. Run the agent and read its trace
 
 In one or two sentences, how did the agent get from the claim to its verdict? Point to the trace entries by their numbers.
 
->
+> 1. queries for the composer of 'Persian Surgery Dervishes'; 2. reads for the composer Terry Riley; 3. reads the page for Terry Riley to find his birthday; 4. cumulates an answer that the album "Persian Surgery Dervishes" is by Terry Riley, and his Wikipedia article states he was born June 24, 1935.
 
 Which lookup would you have done differently, and how? If none, which one surprised you?
 
->
+> I am surprised that the query was able to find the composer through the song he composed and pulled the composer's bio through a different page. One thing I would have done differently was phrase the explanation to focus more on Terry Riley, not the song he composed. 
 
 Describe Wikidata briefly. Why may it be important to this task?
 
->
+> Wikidata stores facts in a fixed shape instead of a prose. It is important to this task because it is able to isolate necessary information through an item, a property, and a value. 
 
 # Part 1: How the agent works
 
