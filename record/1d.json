@@ -1,0 +1,48 @@
+{
+  "step": "1d",
+  "title": "Write the agent's instructions",
+  "session_id": null,
+  "conversations": [],
+  "complete": true,
+  "checkpoints": [
+    {
+      "text": "Your own instructions are in instructions.md, and say: how to break a claim into pieces; when to use wikidata; when to stop; when to answer \"doesn't say\"",
+      "reached": true
+    },
+    {
+      "text": "The second run on your 12 development claims is saved",
+      "reached": true
+    },
+    {
+      "text": "Your answer is in WRITEUP.md",
+      "reached": true
+    }
+  ],
+  "answers": [
+    {
+      "question": "What changed in the agent's traces after you wrote your instructions? Give one claim as an example.",
+      "answer": "Not much changed in the results of the claims, but for the claim I spoke about in 1c, the agent did a much better job at navigating its queries. “Detail production credits song lyric \"Singapore\"” this query was what would have answered the claim.",
+      "written_by": "the student"
+    }
+  ],
+  "record": [
+    {
+      "kind": "mark",
+      "reached": [
+        "Your own instructions are in instructions.md, and say: how to break a claim into pieces; when to use wikidata; when to stop; when to answer \"doesn't say\"",
+        "The second run on your 12 development claims is saved",
+        "Your answer is in WRITEUP.md"
+      ],
+      "time": "2026-11-24T11:39:00-06:00"
+    }
+  ],
+  "told_the_page": [
+    {
+      "time": "2026-11-24T11:39:00-06:00",
+      "kind": "checkpoint",
+      "n": 1,
+      "text": "Your own instructions are in instructions.md, and say: how to break a claim into pieces; when to use wikidata; when to stop; when to answer \"doesn't say\""
+    }
+  ],
+  "turns": 0
+}

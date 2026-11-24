@@ -1,0 +1,8 @@
+{"tool": "search", "input": {"query": "Vic & Anthony's Steakhouse"}}
+{"tool": "read", "input": {"title": "Vic & Anthony's Steakhouse", "section": null}}
+{"tool": "search", "input": {"query": "Golden Nugget Casinos"}}
+{"tool": "search", "input": {"query": "Califonia Club"}}
+{"tool": "search", "input": {"query": "Golden Nugget Casino"}}
+{"tool": "read", "input": {"title": "Golden Nugget Las Vegas", "section": null}}
+{"tool": "wikidata", "input": {"entity": "California club", "property": "location"}}
+{"tool": "wikidata", "input": {"entity": "Golden Nugget Las Vegas", "property": "location"}}

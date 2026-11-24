@@ -43,4 +43,54 @@ def run_agent(claim, client=None, max_steps=MAX_STEPS, lookup=run_tool):
     # also pay attention to whether the loop has reached its limit: a claim that runs out of
     # lookups cannot be decided.
     # ---- your loop goes below this line (step 1a) ----
-    raise NotImplementedError("The loop is not written yet: see step 1a.")
+
+    # Set the count of lookups to 0.
+    # (steps, set to 0 above, is this count)
+
+    # Ask the model the question, and to pick items, properties, and values worth searching for.
+    reply = talk.ask()
+
+    # Store the model's reply.
+    stored_reply = reply
+
+    while True:  # the repeat that "go back to 'If the reply gives an answer'" asks for
+
+        # If the reply gives an answer, stop and return that answer and the count of lookups, even if the reply also asks for searches or reads.
+        if stored_reply.answer is not None:
+            return talk.accept(stored_reply.answer, steps)
+
+        # If the reply asks for any searches or reads:
+        if stored_reply.lookups:
+
+            # If the count of lookups has reached its limit, stop with no answer and return the number of lookups.
+            if steps >= max_steps:
+                return talk.stop(RAN_OUT, steps)
+
+            # Make every search and read that reply asked for.
+            found = [talk.run(call) for call in stored_reply.lookups]
+
+            # Add the number of searches and reads that were just made to the count of lookups.
+            steps += len(stored_reply.lookups)
+
+            # Store what came back from all of them.
+            for call, result in zip(stored_reply.lookups, found):
+                talk.give(call, result)
+
+            # Give the model everything that came back, all together, and ask it again.
+            talk.send_results()
+            reply = talk.ask()
+
+            # Store the model's new reply and go back to "If the reply gives an answer".
+            stored_reply = reply
+            continue
+
+        # If the reply has neither an answer nor any searches or reads:
+        if stored_reply.answer is None and not stored_reply.lookups:
+
+            # Remind the model to answer the question, and ask it again.
+            talk.remind()
+            reply = talk.ask()
+
+            # Store the model's new reply and go back to "If the reply gives an answer".
+            stored_reply = reply
+            continue

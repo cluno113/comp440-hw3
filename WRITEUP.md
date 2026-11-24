@@ -65,15 +65,29 @@ The Background and an example outline are under 1a on the homework page, and in 
 Write your outline of the loop in the code block: what it remembers, what it repeats, and every way it stops.
 
 ```
+Set the count of lookups to 0.
+Ask the model the question, and to pick items, properties, and values worth searching for. 
+Store the model's reply.
+If the reply gives an answer, stop and return that answer and the count of lookups, even if the reply also asks for searches or reads.
+If the reply asks for any searches or reads:
+    If the count of lookups has reached its limit, stop with no answer and return the number of lookups.
+    Make every search and read that reply asked for.
+    Add the number of searches and reads that were just made to the count of lookups.
+    Store what came back from all of them.
+    Give the model everything that came back, all together, and ask it again.
+    Store the model's new reply and go back to "If the reply gives an answer".
+If the reply has neither an answer nor any searches or reads:
+    Remind the model to answer the question, and ask it again.
+    Store the model's new reply and go back to "If the reply gives an answer".
 ```
 
 List each thing your loop remembers from one turn to the next, and say what would go wrong without it.
 
->
+> My loop remembers the important items, properties, and values in the question to help query necessary information. What could go wrong without it is that the loop would not focus on the information it needs to be extracting, it won't stay focused on answering the question.
 
 Now open `reference_loop.py` and compare it with your loop. Describe one difference in implementation and the resulting effects on agent behavior.
 
->
+> I was imagining there to be more manual callings of asking the model for an answer. But, under the variable talk, the model was called upon without a lot of direction from the loop. I think it made me realize that agent behavior relies upon the instructions set in system and the client Anthropic. I think what I wrote in the design of the loop was diluted in a way that goes to show that this particular agent's behavior is instructed simply in its real application.
 
 ## 1b. Be the agent
 
@@ -83,11 +97,19 @@ List your lookups, in order. Ask Claude to paste every column but the last from 
 
 | # | Tool | What you asked for | Why you chose it |
 |---|---|---|---|
-| 1 | | | |
+| 1 | search | Vic & Anthony's Steakhouse | It checks to ensure the Steakhouse exists and will lead me to find the casino name | 
+| 2 | read | Vic & Anthony's Steakhouse | Reads the casino name |
+| 3 | search | Golden Nugget Casinos | Looks for information on California Club and Vic & Anthony's Steakhouse finds its Las Vegas Location|
+| 4 | search | Califonia Club | Looks for Golden Nugget Casinos confirms its Las Vegas location |
+| 5 | search | Golden Nugget Casino | Null on California Club and the Steakhouse existing at the location |
+| 6 | read | Golden Nugget Las Vegas | Looks for information on Laudry's, Inc and confirms |
+| 7 | wikidata | California club, property: location | Geospatial location of the club |
+| 8 | wikidata | Golden Nugget Las Vegas, property: location | Compares Golden Nugget Las Vegas to the Califronia Club property |
+
 
 What is your verdict on the claim, and which sentence or sentences from what you read is it based on?
 
->
+>  I can only confirm that Vic & Anthony's Steakhouse exists in Las Vegas at the Golden Nugget Casino. The casino is owned by Landry's, Inc. I can show the location of California Club in relation to the location of the casino.
 
 ## 1c. Watch the agent work
 
@@ -95,19 +117,19 @@ List the three traces you read closely. At least one should be a claim the agent
 
 | # | Claim (first few words) | Articles | Did it match the dataset's label? | Did it get there for a good reason? Why or why not |
 |---|---|---|---|---|
-| 1 | | | | |
-| 2 | | | | |
-| 3 | | | | |
+| 1 | Four operas | Krzysztof Pendereck | No | Yes, the composer does not compose operas |
+| 2 | The actor | Paul Gross, Martha Burns | No | I think it was because of how the claim was phrased with past tense, 'had'. The relationship still persists |
+| 3 | This Singapore | Detail (music producer), Drunk in Love, Joseph Schooling, Michael Phelps, We Dem Boyz| No | I think it messed up when it looked up what a music producer was and narrowed into a random song by Beyonce. It led itself to not be able to answer this question. |
 
 Which trace did you find most interesting, and what did the agent do well or badly in it?
 
->
+> I found the last trace to be the most interesting because I don't understand what the claim means. I think the agent should have looked to find 'freestyle' under a song produced by Detail. Instead of going to define a music producer. While there is no correlation that exists between Michael Phelps and any producer Detail, I think the agent could have done this in a different way to save lookups.
 
 ## 1d. Write the agent's instructions
 
 What changed in the agent's traces after you wrote your instructions? Give one claim as an example.
 
->
+> Not much changed in the results of the claims, but for the claim I spoke about in 1c, the agent did a much better job at navigating its queries. “Detail production credits song lyric "Singapore"” this query was what would have answered the claim.
 
 ## 1e. Start the full run, and predict
 
@@ -115,13 +137,13 @@ Predict the share of claims each version will get right (its verdict matches the
 
 | Version | 2 articles | 3 articles | 4 articles | Why you think so |
 |---|---|---|---|---|
-| No tools | | | | |
-| One search | | | | |
-| Agent | | | | |
+| No tools | 50% | 30% | 20% | I think it would access as many articles because of its limitations, and how it will pick what it can assess from the claim. |
+| One search | 40% | 40% | 20% | I think it will lean more on articles because it is able to access one search with the claim opening up more options of items/properties/values to read on. |
+| Agent | 20% | 30% | 50% | I think the agent will either be able to rationalize its lookups and read from less articles, but when the claim is confusing, the agent tends to derail from the topic of the claim and read more. |
 
 How many lookups will the agent make per claim, on average? Why?
 
->
+> I think the agent will make around 7 lookups per claim on average, because that is around what the agent did in previous exercises. 
 
 # Part 2: The agent against the baselines
 
