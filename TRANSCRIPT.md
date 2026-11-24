@@ -713,7 +713,7 @@ Change the outline in `WRITEUP.md` in your editor and save it. Then ask me to tr
 <!-- transcript-session: b1342d5c-faa8-4623-9e97-a21abea43b00 | 2026-11-20T03:55:52.712Z -->
 ## Session `b1342d5c` — 2026-11-20 03:55:52
 
-*95 user turns. Tool output shortened; reasoning omitted.*
+*103 user turns. Tool output shortened; reasoning omitted.*
 
 **User:**
 where am i at?
@@ -3762,5 +3762,251 @@ Don't look at the run's results until your predictions are saved.
 
 **User:**
 done, what's next?
+
+**Claude:**
+- 🔧 `Bash` — sed -n '/^## 1e/,/^# Part 2/p' WRITEUP.md; ls runs/part2
+
+  ```
+  ## 1e. Start the full run, and predict
+  
+  Predict the share of claims each version will get right (its verdict matches the dataset's label), as a percentage. A guess is fine; the reasons are what I grade.
+  
+  | Version | 2 articles | 3 articles | 4 articles | Why you think so |
+  |---|---|---|---|---|
+  | No tools | 50% | 30% | 20% | I think it would access as many articles because of its limitations, and how it will pick what it can assess from the claim. |
+  | One search | 40% | 40% | 20% | I think it will lean more on articles because it is able to access one search with the claim opening up more options of items/properties/values to read on. |
+  | Agent | 20% | 30% | 50% | I think the agent will either be able to rationalize its lookups and read from less articles, but when the claim is confusing, the agent tends to derail from the topic o...
+  
+  How many lookups will the agent make per claim, on average? Why?
+  
+  ... (7 more lines)
+  ```
+
+I looked. Your predictions table and your answer about lookups are both in WRITEUP.md under 1e.
+
+The run is still going: it hasn't saved its report yet. Keep its terminal tab open and your laptop awake until it ends with two tables. Once it has ended, this is a good place to stop for the day.
+
+The next step is 2a, Compare accuracy. Once the run has ended, start it from the homework page: paste its prompt into this chat, or use its command for a new session.
+
+**User:**
+Start step 2a. Read .workbench/2a.md and follow it from now on, in place of your instructions for any other step.
+
+**Claude:**
+- 🔧 `Bash` — sed -n '253,700p' .workbench/2a.md; ls runs/part2
+
+  ```
+  # This session: one step of the assignment
+  
+  You help with one step, and only this one: 2a, "Compare accuracy", in Part 2 (The agent against the baselines).
+  What this step is, as the page says it under the step's title: In this step you find out how often each of the three versions matched the dataset's label on your 100 evaluation claims. You compare ...
+  This step takes about 25 minutes, as the page says. Say so if the student asks.
+  The student talks to you in a terminal. Beside it, a web page shows every step of the assignment,
+  each with its own Claude Code session, and this step's instructions, which say:
+  
+  <step-instructions>
+  In this step you find out how often each of the three versions matched the dataset's label on your 100
+  evaluation claims. You compare those numbers with your predictions from 1e.
+  
+  ... (141 more lines)
+  ```
+
+I'm now on **step 2a, Compare accuracy**.
+
+In this step you find out how often each of the three versions matched the dataset's label on your 100 evaluation claims, and compare that with your predictions. The full run hasn't finished yet: `runs/part2/report.txt` doesn't exist.
+
+What does the run's terminal tab show right now? Is it still printing progress lines, or has it stopped (or been closed)?
+
+**User:**
+it's still printing progress lines
+
+**Claude:**
+The run is still going, so let it finish. Don't start another copy. Keep that tab open and your laptop awake until it prints its two tables.
+
+When it has finished, ask me to paste the report into WRITEUP.md under 2a.
+
+**User:**
+it finished, paste the report into WRITEUP.md
+
+**Claude:**
+- 🔧 `Bash` — ls runs/part2; cat runs/part2/report.txt; grep -n "^## 2a" -A6 WRITEUP.md
+
+  ```
+  agent.jsonl
+  no-tools.jsonl
+  one-search.jsonl
+  report.txt
+  run.json
+  Share of claims where the verdict matched the label:
+  
+                            no-tools  one-search       agent
+  HoVer, 2 articles         20/34       16/34       21/34   
+  HoVer, 3 articles         23/33       17/33       25/33   
+  HoVer, 4 articles         21/33       17/33       18/33   
+  All                       64/100      50/100      64/100  
+  ... (19 more lines)
+  ```
+
+- 🔧 `Edit` — /Users/clairekuno/Documents/Github/comp440-hw3/WRITEUP.md
+
+  ```
+  The file /Users/clairekuno/Documents/Github/comp440-hw3/WRITEUP.md has been updated successfully. (note: the file had been modified on disk since you last read it — the edit applied cleanly, but th...
+  ```
+
+The run has finished: `runs/part2/report.txt` exists. Here is the report:
+
+```
+Share of claims where the verdict matched the label:
+
+                          no-tools  one-search       agent
+HoVer, 2 articles         20/34       16/34       21/34   
+HoVer, 3 articles         23/33       17/33       25/33   
+HoVer, 4 articles         21/33       17/33       18/33   
+All                       64/100      50/100      64/100  
+
+HoVer, supported          18/50        1/50       25/50   
+HoVer, not supported      46/50       49/50       39/50   
+
+Average per claim:
+
+                         lookups   seconds
+no-tools                     0.0       3.4
+one-search                   2.0       4.3
+agent                        5.0       7.7
+
+1 runs gave no verdict (for example a refusal, or out of lookups). They count as wrong. The results viewer lists them on this run's page, under "Claims with no verdict, or that stopped with an error".
+```
+
+I pasted it word for word into the empty block under 2a in WRITEUP.md. If your editor has WRITEUP.md open with unsaved changes, reload it from disk before you save, so the report isn't lost.
+
+**Next:** in the results viewer, open "runs/part2" and read "Accuracy". Then type your answers to the three 2a questions in WRITEUP.md, in your editor. You don't need to reply here.
+
+**User:**
+done, what's next?
+
+**Claude:**
+- 🔧 `Bash` — sed -n '/^## 2a/,/^## 2b/p' WRITEUP.md
+
+  ````
+  ## 2a. Compare accuracy
+  
+  Ask Claude to paste the report of your full run, from `runs/part2/report.txt`, into the empty block below.
+  
+  ```
+  Share of claims where the verdict matched the label:
+  
+                            no-tools  one-search       agent
+  HoVer, 2 articles         20/34       16/34       21/34   
+  HoVer, 3 articles         23/33       17/33       25/33   
+  HoVer, 4 articles         21/33       17/33       18/33   
+  All                       64/100      50/100      64/100  
+  ... (27 more lines)
+  ````
+
+I looked at the 2a section. The report and your first answer are there. The other two answers are still empty:
+
+- "Does the gap between the agent and the one-search baseline grow with the number of articles?…"
+- "The no-tools baseline read nothing. How did it do…?"
+
+**Next:** type those two in WRITEUP.md under 2a, in your editor. Also, the first question asks you to "use the numbers from your run, by number of articles". The report's rows "HoVer, 2 articles", "3 articles" and "4 articles" hold those numbers. Whether your answer uses them is your call.
+
+**User:**
+done, what's next?
+
+**Claude:**
+- 🔧 `Bash` — sed -n '/^How do the results compare/,/^## 2b/p' WRITEUP.md
+
+  ```
+  How do the results compare with your predictions? Where were you furthest off? Use the numbers from your run, by number of articles.
+  
+  >  There was a much more even distribution across the versions from my run. I mistakenly beleived that the agent would access more articles. I think my predictions for the one-search were closest, ...
+  
+  Does the gap between the agent and the one-search baseline grow with the number of articles? What in the claims or the traces explains what you see?
+  
+  > The gap between the agent and on-search baseline doesn't grow with the number of articles as the agent performed well on 2 articles, while performing less well with the higher number of articles....
+  
+  The no-tools baseline read nothing. How did it do, and what does that tell you about these claims?
+  
+  > It did better than the one-search version. It performed as well as the agent. I think it tells you that it performs how it must by accessing facts and reiterating them to match the claim. It tell...
+  
+  ... (1 more line)
+  ```
+
+I looked. All three 2a answers and the report are in WRITEUP.md.
+
+One check against the report, since your second answer describes the rows by number of articles. Here are those rows as percentages:
+
+```
+                      one-search        agent
+2 articles          16/34 = 47%    21/34 = 62%
+3 articles          17/33 = 52%    25/33 = 76%
+4 articles          17/33 = 52%    18/33 = 55%
+```
+
+Your answer says the agent "performed well on 2 articles, while performing less well with the higher number of articles". Compare that with the agent's 3-article row. Whether to change anything is your call.
+
+The next step is 2b, Check the evidence yourself. Start it from the homework page: paste its prompt into this chat, or use its command for a new session.
+
+**User:**
+Start step 2b. Read .workbench/2b.md and follow it from now on, in place of your instructions for any other step.
+
+**Claude:**
+- 🔧 `Bash` — sed -n '253,700p' .workbench/2b.md
+
+  ```
+  # This session: one step of the assignment
+  
+  You help with one step, and only this one: 2b, "Check the evidence yourself", in Part 2 (The agent against the baselines).
+  What this step is, as the page says it under the step's title: In this step you find out whether the agent's quoted evidence really supports its verdicts.
+  This step takes about 35 minutes, as the page says. Say so if the student asks.
+  The student talks to you in a terminal. Beside it, a web page shows every step of the assignment,
+  each with its own Claude Code session, and this step's instructions, which say:
+  
+  <step-instructions>
+  In this step you find out whether the agent's quoted evidence really supports its verdicts.
+  
+  **Words in this step:** The *evidence* is the sentences the agent quoted from Wikipedia.
+  ... (138 more lines)
+  ```
+
+I'm now on **step 2b, Check the evidence yourself**.
+
+In this step you find out whether the agent's quoted evidence really supports its verdicts. First, in the results viewer, open "runs/part2" and click "Clear the filters". Set "Verdict" in "The agent" box to "supported or refuted", and leave "Order" at "Order of the claims file". Rows 1 to 5 are your five claims.
+
+For each claim, read the quoted evidence and fill in its row of the table under 2b in WRITEUP.md, in your editor. You can ask me to show a claim's quotes, or a page as the agent read it.
+
+**User:**
+show me the first claim's quoted evidence
+
+**Claude:**
+I can't see the results viewer, and `runs/part2/agent.jsonl` may not be in the same order as the claims table. Which claim is row 1 in your filtered table? Give me its first few words, and I'll find it and paste its quoted evidence.
+
+**User:**
+done
+
+**Claude:**
+- 🔧 `Bash` — sed -n '/^## 2b/,/^# Part 3/p' WRITEUP.md
+
+  ```
+  ## 2b. Check the evidence yourself
+  
+  Fill in one row for each of the first five claims in your full run, in the order of the claims file, where the agent's verdict is *supported* or *refuted*.
+  
+  | # | Claim (first few words) | Agent's verdict | Matched the dataset's label? | Does the quoted evidence support that verdict? | Why or why not |
+  |---|---|---|---|---|---|
+  | 1 | Gregg Rolie | refuted | No | Yes | Gregg Rolie as a keyboardist and Rob Tyner as a lead singer |
+  | 2 | Patrick Mercer | refuted | No | Yes | Only the first clause is false |
+  | 3 | Queen Medb | supported | Yes | Yes | Ulster is the northern province of Ireland which the other versions had trouble confirming |
+  | 4 | John McTiernan | refuted | Yes | Yes | All named actors are not mentioned under the movie McTiernan directed |
+  | 5 | The Formula | supported | No | Yes | 1963 Lombank Trophy was won by Graham Hill, not by the 1963 Formula One World Champion |
+  
+  ... (9 more lines)
+  ```
+
+I looked at the 2b section. All five rows of the table are filled in. The two answers below it are still empty:
+
+- "Of the five, how many matched the dataset's label, and for how many of those does the quoted evidence support the verdict?"
+- "Is accuracy alone a good measure of this agent? Why or why not?"
+
+**Next:** type those two in WRITEUP.md under 2b, in your editor. If you want to look again at any of the five claims' quotes or pages, give me a few words of the claim.
 
 <!-- end-session: b1342d5c-faa8-4623-9e97-a21abea43b00 -->

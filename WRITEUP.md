@@ -152,19 +152,38 @@ How many lookups will the agent make per claim, on average? Why?
 Ask Claude to paste the report of your full run, from `runs/part2/report.txt`, into the empty block below.
 
 ```
+Share of claims where the verdict matched the label:
+
+                          no-tools  one-search       agent
+HoVer, 2 articles         20/34       16/34       21/34   
+HoVer, 3 articles         23/33       17/33       25/33   
+HoVer, 4 articles         21/33       17/33       18/33   
+All                       64/100      50/100      64/100  
+
+HoVer, supported          18/50        1/50       25/50   
+HoVer, not supported      46/50       49/50       39/50   
+
+Average per claim:
+
+                         lookups   seconds
+no-tools                     0.0       3.4
+one-search                   2.0       4.3
+agent                        5.0       7.7
+
+1 runs gave no verdict (for example a refusal, or out of lookups). They count as wrong. The results viewer lists them on this run's page, under "Claims with no verdict, or that stopped with an error".
 ```
 
 How do the results compare with your predictions? Where were you furthest off? Use the numbers from your run, by number of articles.
 
->
+>  There was a much more even distribution across the versions from my run. I mistakenly beleived that the agent would access more articles. I think my predictions for the one-search were closest, but still off. This version performed the worst out of all versions. My prediction for number of lookups was not too off as I said 7 when it was 5. 
 
 Does the gap between the agent and the one-search baseline grow with the number of articles? What in the claims or the traces explains what you see?
 
->
+> The gap between the agent and on-search baseline doesn't grow with the number of articles as the agent performed well on 2 articles, while performing less well with the higher number of articles. The one-search works in the opposite way. I think this goes to show how when claims are easily answered without the need of too many tools, the agent rationalizes its lookup process. 
 
 The no-tools baseline read nothing. How did it do, and what does that tell you about these claims?
 
->
+> It did better than the one-search version. It performed as well as the agent. I think it tells you that it performs how it must by accessing facts and reiterating them to match the claim. It tells me that some of these claims are written with a clear phrasing that allows the model to confirm information accurately, while others hide the necessary topics needed to query confusing all versions of the runs.
 
 ## 2b. Check the evidence yourself
 
@@ -172,19 +191,19 @@ Fill in one row for each of the first five claims in your full run, in the order
 
 | # | Claim (first few words) | Agent's verdict | Matched the dataset's label? | Does the quoted evidence support that verdict? | Why or why not |
 |---|---|---|---|---|---|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
+| 1 | Gregg Rolie | refuted | No | Yes | Gregg Rolie as a keyboardist and Rob Tyner as a lead singer |
+| 2 | Patrick Mercer | refuted | No | Yes | Only the first clause is false |
+| 3 | Queen Medb | supported | Yes | Yes | Ulster is the northern province of Ireland which the other versions had trouble confirming |
+| 4 | John McTiernan | refuted | Yes | Yes | All named actors are not mentioned under the movie McTiernan directed |
+| 5 | The Formula | supported | No | Yes | 1963 Lombank Trophy was won by Graham Hill, not by the 1963 Formula One World Champion |
 
 Of the five, how many matched the dataset's label, and for how many of those does the quoted evidence support the verdict?
 
->
+> 2 out of 5 matched the dataset's label and both of them support the verdict.
 
 Is accuracy alone a good measure of this agent? Why or why not?
 
->
+> No, I think you need more to understand if the refute is coming from whether is claim is phrased in a complicated way, if the claim is false, or if the agent could not figure out how to answer it. 
 
 # Part 3 (extra credit): Why the agent fails, and one change
 
